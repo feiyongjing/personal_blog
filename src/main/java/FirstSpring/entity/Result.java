@@ -1,29 +1,31 @@
 package FirstSpring.entity;
 
-public class Result {
+public abstract class Result<T> {
     private String status;
     private String msg;
-    private boolean isLogin;
-    private Object data;
+    private T data;
 
-    public static Result failure(String message){
-        return new Result("fail",message,false);
-    }
+//    public static Result failure(String message){
+//        return new Result("fail",message,false);
+//    }
+//
+//    public static Result success(String message, Object data){
+//        return new Result("ok",message,true,data);
+//    }
 
-    public static Result success(String message, Object data){
-        return new Result("ok",message,true,data);
-    }
+//    protected Result(String status, String msg) {
+//        this.status = status;
+//        this.msg = msg;
+//    }
 
-    private Result(String status, String msg, boolean isLogin) {
+    protected Result(String status, String msg) {
         this.status = status;
         this.msg = msg;
-        this.isLogin = isLogin;
     }
 
-    private Result(String status, String msg, boolean isLogin, Object data) {
+    protected Result(String status, String msg, T data) {
         this.status = status;
         this.msg = msg;
-        this.isLogin = isLogin;
         this.data = data;
     }
 
@@ -33,10 +35,6 @@ public class Result {
 
     public String getMsg() {
         return msg;
-    }
-
-    public boolean isLogin() {
-        return isLogin;
     }
 
     public Object getData() {

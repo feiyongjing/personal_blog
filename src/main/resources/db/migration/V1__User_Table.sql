@@ -7,3 +7,7 @@ create table `user`
     `created_at`         DateTime,
     `updated_at`         DateTime
 )DEFAULT CHARSET=utf8mb4;
+INSERT `user` (id, username, encrypted_password,avatar) VALUES
+( '1', 'aaa', '456','789'),
+( '2', 'bbb', '123' ,'123'),
+( '3', 'ccc', '123','456');

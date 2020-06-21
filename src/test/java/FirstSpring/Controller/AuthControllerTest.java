@@ -1,5 +1,6 @@
 package FirstSpring.Controller;
 
+import FirstSpring.Service.AuthService;
 import FirstSpring.Service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -40,6 +41,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AuthControllerTest {
     private MockMvc mockMvc;
     @Mock
+    private AuthService authService;
+    @Mock
     private UserService userService;
     @Mock
     private AuthenticationManager authenticationManager;
@@ -48,11 +51,11 @@ class AuthControllerTest {
 
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(new AuthController(userService, authenticationManager)).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(new AuthController(authService,userService, authenticationManager)).build();
     }
 
     @Test
-    void retultNotLonginByDefault() throws Exception {
+    void returnNotLonginByDefault() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/auth")).andExpect(status().isOk()).andExpect(mvcResult -> {
 //                System.out.println(mvcResult.getResponse().getContentAsString(UTF_8));
             Assertions.assertTrue(mvcResult.getResponse().getContentAsString(UTF_8).contains("用户没有登录"));
