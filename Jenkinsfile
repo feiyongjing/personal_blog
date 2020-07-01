@@ -23,6 +23,8 @@ node {
 def normalCIBuild(String version) {
     stage 'test & package'
 
+    sh('chmod +x mvnw')
+
     sh('./mvnw clean package')
 
     stage('docker build')
