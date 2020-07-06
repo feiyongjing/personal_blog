@@ -7,11 +7,12 @@ public class BlogListResult extends Result<List<Blog>> {
     private int page;
     private int totalPage;
 
-    public static BlogListResult failure(String message){
-        return new BlogListResult("fail",message);
+    public static BlogListResult failure(String message) {
+        return new BlogListResult("fail", message);
     }
-    public static BlogListResult success(int total, int page, int totalPage, List<Blog> data){
-        return new BlogListResult("ok","获取成功",total,page,totalPage,data);
+
+    public static BlogListResult success(int total, int page, int totalPage, List<Blog> data) {
+        return new BlogListResult("ok", "获取成功", total, page, totalPage, data);
     }
 
 
@@ -25,7 +26,6 @@ public class BlogListResult extends Result<List<Blog>> {
         this.page = page;
         this.totalPage = totalPage;
     }
-
 
 
     public int getTotal() {

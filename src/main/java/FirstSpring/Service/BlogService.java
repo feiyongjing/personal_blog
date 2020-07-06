@@ -25,10 +25,10 @@ public class BlogService {
 
             Integer count = blogDao.count(userId);
             Integer totalPage = count % pageSize == 0 ? count / pageSize : count / pageSize + 1;
-            if (count==0&&userId==null){
+            if (count == 0 && userId == null) {
                 throw new IllegalArgumentException("没有可展示的博客");
             }
-            if (count==0){
+            if (count == 0) {
                 throw new IllegalArgumentException("您没有可展示的博客");
             }
             if (page > totalPage) {
@@ -39,7 +39,7 @@ public class BlogService {
             return BlogListResult.success(count, page, totalPage, blogs);
         } catch (IllegalArgumentException e) {
             return BlogListResult.failure(e.getMessage());
-        }catch (Exception e) {
+        } catch (Exception e) {
             return BlogListResult.failure("系统异常");
         }
     }
@@ -60,7 +60,7 @@ public class BlogService {
         }
     }
 
-    public BlogResult updateBlog(int blogId,Blog blog) {
+    public BlogResult updateBlog(int blogId, Blog blog) {
         Blog blogInDb = blogDao.selectBlogById(blogId);
         if (blogInDb == null) {
             return BlogResult.failure("博客不存在");
@@ -77,7 +77,7 @@ public class BlogService {
         }
     }
 
-    public BlogResult deleteBlog(int blogId,User user) {
+    public BlogResult deleteBlog(int blogId, User user) {
         Blog blogInDb = blogDao.selectBlogById(blogId);
         if (blogInDb == null) {
             return BlogResult.failure("博客不存在");
@@ -86,7 +86,7 @@ public class BlogService {
             return BlogResult.failure("无法删除别人的博客");
         }
         try {
-            return BlogResult.success("删除成功",blogDao.deleteBlog(blogId));
+            return BlogResult.success("删除成功", blogDao.deleteBlog(blogId));
         } catch (Exception e) {
             return BlogResult.failure(e);
         }

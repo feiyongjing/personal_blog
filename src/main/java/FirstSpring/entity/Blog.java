@@ -33,7 +33,7 @@ public class Blog {
     }
 
     public Integer getUserId() {
-        return user==null?null:user.getId();
+        return user == null ? null : user.getId();
     }
 
     public void setUserId(Integer userId) {

@@ -19,16 +19,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @Controller
 public class AuthController {
     private AuthService authService;
     private UserService userService;
     private AuthenticationManager authenticationManager;
+    private Pattern UserNameLimit = Pattern.compile("^[a-zA-Z0-9_\\u4e00-\\u9fa5]{1,15}$");
 
     @Inject
-    public AuthController(AuthService authService,UserService userService, AuthenticationManager authenticationManager) {
-        this.authService=authService;
+    public AuthController(AuthService authService, UserService userService, AuthenticationManager authenticationManager) {
+        this.authService = authService;
         this.userService = userService;
         this.authenticationManager = authenticationManager;
     }
@@ -36,7 +38,7 @@ public class AuthController {
     @GetMapping("/auth")
     @ResponseBody
     public LoginResult auth() {
-        User loggedInUser= authService.getCurrentUser();
+        User loggedInUser = authService.getCurrentUser();
         if (loggedInUser == null) {
             return LoginResult.failure("用户没有登录");
         } else {
@@ -63,18 +65,18 @@ public class AuthController {
         String username = usernameAndPasswordJson.get("username").toString();
         String password = usernameAndPasswordJson.get("password").toString();
         if (username == null || password == null) {
-            return LoginResult.failure("username/password == null");
+            return LoginResult.failure("用户名或密码为空");
         }
-        if (username.length() < 1 || username.length() > 15) {
-            return LoginResult.failure("invalid username");
+        if (!UserNameLimit.matcher(username).find()) {
+            return LoginResult.failure("用户名不符合规范");
         }
         if (password.length() < 6 || password.length() > 16) {
-            return LoginResult.failure("invalid password");
+            return LoginResult.failure("密码长度不符合规范");
         }
         try {
             userService.save(username, password);
         } catch (DuplicateKeyException e) {
-            return LoginResult.failure("user already exists");
+            return LoginResult.failure("该用户名已被注册");
         }
         return LoginResult.success("注册成功", userService.getUserByUsername(username));
     }

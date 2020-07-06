@@ -23,11 +23,12 @@ class UserServiceTest {
     UserMapper mockMapper;
     @InjectMocks
     UserService userService;
+
     @Test
     void testSave() {
         when(mockEncoder.encode("123456")).thenReturn("myEncodedPassword");
-        userService.save("MyUser","123456");
-        verify(mockMapper).save("MyUser","myEncodedPassword");
+        userService.save("MyUser", "123456");
+        verify(mockMapper).save("MyUser", "myEncodedPassword");
     }
 
     @Test
@@ -39,15 +40,15 @@ class UserServiceTest {
     @Test
     void throwExceptionWhenUserNotFound() {
         Assertions.assertThrows(UsernameNotFoundException.class,
-                ()->userService.loadUserByUsername("MyUser"));
+                () -> userService.loadUserByUsername("MyUser"));
     }
 
     @Test
-    public void returnUserDetailsWhenUserFound(){
-        when(mockMapper.findUserByUsername("MyUser")).thenReturn(new User(123,"MyUser","myEncodedPassword"));
-        UserDetails userDetails=userService.loadUserByUsername("MyUser");
-        Assertions.assertEquals("MyUser",userDetails.getUsername());
-        Assertions.assertEquals("myEncodedPassword",userDetails.getPassword());
+    public void returnUserDetailsWhenUserFound() {
+        when(mockMapper.findUserByUsername("MyUser")).thenReturn(new User(123, "MyUser", "myEncodedPassword"));
+        UserDetails userDetails = userService.loadUserByUsername("MyUser");
+        Assertions.assertEquals("MyUser", userDetails.getUsername());
+        Assertions.assertEquals("myEncodedPassword", userDetails.getPassword());
 
     }
 }

@@ -27,22 +27,24 @@ public class BlogDao {
         }
         return result;
     }
-    public List<Blog> getBlogs(Integer page, Integer pageSize, Integer userId){
-        Map<String, Object> parameterMap=asMap("offset",(page-1)*pageSize,
-                "pageSize",pageSize,
-                "user_id",userId);
-        return sqlSession.selectList("MyMapper.selectBlog",parameterMap);
+
+    public List<Blog> getBlogs(Integer page, Integer pageSize, Integer userId) {
+        Map<String, Object> parameterMap = asMap("offset", (page - 1) * pageSize,
+                "pageSize", pageSize,
+                "user_id", userId);
+        return sqlSession.selectList("MyMapper.selectBlog", parameterMap);
     }
 
-    public int count(Integer userId){
-        return sqlSession.selectOne("MyMapper.countBlog", asMap("user_id",userId));
+    public int count(Integer userId) {
+        return sqlSession.selectOne("MyMapper.countBlog", asMap("user_id", userId));
     }
 
     public Blog selectBlogById(int blogId) {
         return sqlSession.selectOne("MyMapper.selectBlogById", asMap("blog_id", blogId));
     }
-    public Blog insertBlog(Blog blog){
-        sqlSession.insert("MyMapper.insertBlog",blog);
+
+    public Blog insertBlog(Blog blog) {
+        sqlSession.insert("MyMapper.insertBlog", blog);
         return selectBlogById(blog.getId());
     }
 
@@ -52,7 +54,7 @@ public class BlogDao {
     }
 
     public Blog deleteBlog(int blogId) {
-        sqlSession.delete("MyMapper.deleteBlog",blogId);
+        sqlSession.delete("MyMapper.deleteBlog", blogId);
         return null;
     }
 }

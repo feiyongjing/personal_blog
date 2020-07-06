@@ -5,19 +5,6 @@ public abstract class Result<T> {
     private String msg;
     private T data;
 
-//    public static Result failure(String message){
-//        return new Result("fail",message,false);
-//    }
-//
-//    public static Result success(String message, Object data){
-//        return new Result("ok",message,true,data);
-//    }
-
-//    protected Result(String status, String msg) {
-//        this.status = status;
-//        this.msg = msg;
-//    }
-
     protected Result(String status, String msg) {
         this.status = status;
         this.msg = msg;

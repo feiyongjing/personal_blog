@@ -20,8 +20,9 @@ public class BlogServiceTest {
     BlogDao blogDao;
     @InjectMocks
     public BlogService blogService;
+
     @Test
-    public void getBlogsFromDb(){
+    public void getBlogsFromDb() {
         List<Blog> blogs = Arrays.asList(mock(Blog.class), mock(Blog.class));
         when(blogDao.getBlogs(1, 2, null)).thenReturn(blogs);
         when(blogDao.count(null)).thenReturn(3);
@@ -36,9 +37,10 @@ public class BlogServiceTest {
         Assertions.assertEquals(2, result.getTotalPage());
         Assertions.assertEquals("ok", result.getStatus());
     }
+
     @Test
-    public void returnFailureWhenExceptionThrow(){
-        when(blogDao.getBlogs(1,10,1)).thenThrow(new RuntimeException());
+    public void returnFailureWhenExceptionThrow() {
+        when(blogDao.getBlogs(1, 10, 1)).thenThrow(new RuntimeException());
 
         when(blogDao.count(1)).thenReturn(10);
         when(blogDao.count(null)).thenReturn(0);
@@ -57,17 +59,17 @@ public class BlogServiceTest {
 
         verify(blogDao).getBlogs(1, 10, 1);
 
-        Assertions.assertEquals("fail",result1.getStatus());
-        Assertions.assertEquals("系统异常",result1.getMsg());
+        Assertions.assertEquals("fail", result1.getStatus());
+        Assertions.assertEquals("系统异常", result1.getMsg());
 
-        Assertions.assertEquals("fail",result2.getStatus());
-        Assertions.assertEquals("没有可展示的博客",result2.getMsg());
+        Assertions.assertEquals("fail", result2.getStatus());
+        Assertions.assertEquals("没有可展示的博客", result2.getMsg());
 
-        Assertions.assertEquals("fail",result3.getStatus());
-        Assertions.assertEquals("您没有可展示的博客",result3.getMsg());
+        Assertions.assertEquals("fail", result3.getStatus());
+        Assertions.assertEquals("您没有可展示的博客", result3.getMsg());
 
-        Assertions.assertEquals("fail",result4.getStatus());
-        Assertions.assertEquals("输入的页码数超过总页码数",result4.getMsg());
+        Assertions.assertEquals("fail", result4.getStatus());
+        Assertions.assertEquals("输入的页码数超过总页码数", result4.getMsg());
     }
 
     @Test

@@ -9,11 +9,13 @@ import javax.inject.Inject;
 
 @Service
 public class AuthService {
-   private UserService userService;
+    private UserService userService;
+
     @Inject
     public AuthService(UserService userService) {
         this.userService = userService;
     }
+
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return userService.getUserByUsername(authentication == null ? null : authentication.getName());

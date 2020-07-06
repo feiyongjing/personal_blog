@@ -21,23 +21,23 @@ public class BlogController {
     private final BlogService blogService;
 
     @Inject
-    public BlogController(AuthService authService,BlogService blogService) {
+    public BlogController(AuthService authService, BlogService blogService) {
         this.authService = authService;
         this.blogService = blogService;
     }
 
     @GetMapping("/blog")
     @ResponseBody
-    public BlogListResult getBlogs(@RequestParam("page") Integer page, @RequestParam(value = "userId",required = false) Integer userId){
-        if(page<0||page==null){
-            page=1;
+    public BlogListResult getBlogs(@RequestParam("page") Integer page, @RequestParam(value = "userId", required = false) Integer userId) {
+        if (page < 0 || page == null) {
+            page = 1;
         }
-        return blogService.getBlogs(page,10,userId);
+        return blogService.getBlogs(page, 10, userId);
     }
 
     @GetMapping("/blog/{blogId}")
     @ResponseBody
-    public BlogResult getBlog(@PathVariable("blogId") int blogId){
+    public BlogResult getBlog(@PathVariable("blogId") int blogId) {
         return blogService.getBlogById(blogId);
     }
 
@@ -46,48 +46,50 @@ public class BlogController {
     public BlogResult newBlog(@RequestBody Map<String, String> params) {
         try {
             return blogService.insertBlog(fromParam(params));
-        }catch (Exception e){
+        } catch (Exception e) {
             return BlogResult.failure(e);
         }
     }
+
     @PatchMapping("/blog/{blogId}")
     @ResponseBody
-    public BlogResult updateBlog(@PathVariable("blogId") int blogId, @RequestBody Map<String, String> params){
+    public BlogResult updateBlog(@PathVariable("blogId") int blogId, @RequestBody Map<String, String> params) {
         try {
-            return blogService.updateBlog(blogId,fromParam(params));
-        }catch (Exception e){
+            return blogService.updateBlog(blogId, fromParam(params));
+        } catch (Exception e) {
             return BlogResult.failure(e);
         }
     }
 
     @DeleteMapping("/blog/{blogId}")
     @ResponseBody
-    public BlogResult deleteBlog(@PathVariable("blogId") int blogId){
+    public BlogResult deleteBlog(@PathVariable("blogId") int blogId) {
         try {
             isLogin();
-            return blogService.deleteBlog(blogId,authService.getCurrentUser());
-        }catch (Exception e){
+            return blogService.deleteBlog(blogId, authService.getCurrentUser());
+        } catch (Exception e) {
             return BlogResult.failure(e);
         }
     }
-    private void isLogin() throws RuntimeException{
-        if(authService.getCurrentUser()==null){
+
+    private void isLogin() throws RuntimeException {
+        if (authService.getCurrentUser() == null) {
             throw new RuntimeException("登录后才能操作");
         }
     }
 
 
     private Blog fromParam(Map<String, String> params) {
-        Blog blog=new Blog();
-        User user=authService.getCurrentUser();
+        Blog blog = new Blog();
+        User user = authService.getCurrentUser();
         String title = params.get("title");
         String content = params.get("content");
         String description = params.get("description");
 
         isLogin();
 
-        AssertUtils.assertTrue(StringArgument.StringMaxLengthArgument(title,100),"博客标题字数不符合规范");
-        AssertUtils.assertTrue(StringArgument.StringMaxLengthArgument(content,10000),"博客内容字数不符合规范");
+        AssertUtils.assertTrue(StringArgument.StringMaxLengthArgument(title, 100), "博客标题字数不符合规范");
+        AssertUtils.assertTrue(StringArgument.StringMaxLengthArgument(content, 10000), "博客内容字数不符合规范");
 
         if (StringArgument.isEmpty(description)) {
             description = content.substring(0, Math.min(content.length(), 10)) + "...";

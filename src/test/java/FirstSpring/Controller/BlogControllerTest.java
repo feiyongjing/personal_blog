@@ -28,10 +28,12 @@ class BlogControllerTest {
     private AuthService authService;
     @Mock
     private BlogService blogService;
+
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(new BlogController(authService, blogService)).build();
     }
+
     @Test
     void requireLoginBeforeProceeding() throws Exception {
         mockMvc.perform(post("/blog").contentType(MediaType.APPLICATION_JSON)
@@ -39,6 +41,7 @@ class BlogControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString(UTF_8).contains("登录后才能操作")));
     }
+
     @Test
     void invalidRequestIfTitleIsEmpty() throws Exception {
         Mockito.when(authService.getCurrentUser()).thenReturn(new User(1, "mockUser", ""));
