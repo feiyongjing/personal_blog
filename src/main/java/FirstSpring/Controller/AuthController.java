@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import static FirstSpring.utils.AntiReptile.checkCrawler;
 
 @Controller
 public class AuthController {
@@ -61,7 +64,10 @@ public class AuthController {
 
     @PostMapping("/auth/register")
     @ResponseBody
-    public LoginResult authRegister(@RequestBody Map<String, Object> usernameAndPasswordJson) {
+    public Object authRegister(@RequestBody Map<String, Object> usernameAndPasswordJson, HttpServletRequest request) {
+        if (checkCrawler(request)){
+            return "死爬虫去死吧";
+        }
         String username = usernameAndPasswordJson.get("username").toString();
         String password = usernameAndPasswordJson.get("password").toString();
         if (username == null || password == null) {
@@ -83,7 +89,10 @@ public class AuthController {
 
     @PostMapping("/auth/login")
     @ResponseBody
-    public LoginResult authLogin(@RequestBody Map<String, Object> usernameAndPasswordJson) {
+    public Object authLogin(@RequestBody Map<String, Object> usernameAndPasswordJson, HttpServletRequest request) {
+        if (checkCrawler(request)){
+            return "死爬虫去死吧";
+        }
         String username = usernameAndPasswordJson.get("username").toString();
         String password = usernameAndPasswordJson.get("password").toString();
         UserDetails userDetails = null;

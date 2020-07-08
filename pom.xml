@@ -90,7 +90,6 @@
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -179,7 +178,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>6.1.1</version>
                 <configuration>
-                    <url>jdbc:mysql://47.99.104.121:3306/xdml?useSSL=false&amp;allowPublicKeyRetrieval=true</url>
+                    <url>jdbc:mysql://localhost:3306/xdml?useSSL=false&amp;allowPublicKeyRetrieval=true</url>
                     <user>root</user>
                     <password>root</password>
                 </configuration>

@@ -24,11 +24,6 @@ public class UserService implements UserDetailsService {
         userMapper.save(username, bCryptPasswordEncoder.encode(password));
     }
 
-
-    public User getUserById(Integer id) {
-        return null;
-    }
-
     public User getUserByUsername(String username) {
         return userMapper.findUserByUsername(username);
     }

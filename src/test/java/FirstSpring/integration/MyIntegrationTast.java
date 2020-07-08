@@ -1,16 +1,8 @@
 package FirstSpring.integration;
 
 import FirstSpring.Application;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.fluent.Content;
 import org.apache.http.client.fluent.Request;
-import org.apache.http.client.fluent.Response;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -22,9 +14,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.io.InputStream;
-
-import static org.apache.http.Consts.UTF_8;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -34,7 +23,7 @@ public class MyIntegrationTast {
     Environment environment;
 
     @Test
-    public void IndexHtmlAccessible() {
+    public void IndexHtmlAccessible() throws IOException {
         String port = environment.getProperty("local.server.port");
         try {
             HttpResponse httpResponse = Request.Get("http://localhost:" + port + "auth")
