@@ -5,7 +5,10 @@
 -----
 使用的技术栈：
 
-- 使用了SpringBoot框架进行整合使用了MySQL进行数据存储
+- 使用了SpringBoot框架进行整合
+- 使用了正则表达式来对用户注册的用户名进行过滤
+- 使用BCrypt强哈希函数的PasswordEncoder的实现来对用户的密码进行加密
+- 使用了MySQL进行数据存储
 - flyway进行数据库自动化迁移
 - 引入了MyBatis简化了数据库操作
 - 使用了jenkins和Travis-ci进行的自动化的测试
