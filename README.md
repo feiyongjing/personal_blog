@@ -8,7 +8,7 @@
 - 使用了SpringBoot框架进行整合使用了MySQL进行数据存储
 - flyway进行数据库自动化迁移
 - 引入了MyBatis简化了数据库操作
-- 使用了jenkins和进行的自动化的测试
+- 使用了jenkins和Travis-ci进行的自动化的测试
 - 使用了Docker方式的jenkins进行自动化的部署和回滚
 -----
 
