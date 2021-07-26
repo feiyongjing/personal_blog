@@ -19,7 +19,6 @@
 
 ```
 docker run --name my-mysql --restart=always -v /root/mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=xdml -p 3306:3306 -d mysql:8.0.19
-docker start my-mysql
 ```
 
 启动Jenkins容器
