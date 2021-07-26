@@ -50,11 +50,11 @@
         on blog.user_id=user.id
             where blog.id = #{blog_id}
     </select>
-    <insert id="insertBlog" parameterType="FirstSpring.entity.Blog" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    <insert id="insertBlog" parameterType="com.feiyongjing.blog.entity.Blog" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO blog (user_id, title, description, content, created_at, updated_at)
         VALUES (#{userId}, #{title}, #{description}, #{content}, now(), now())
     </insert>
-    <insert id="updateBlog" parameterType="FirstSpring.entity.Blog">
+    <insert id="updateBlog" parameterType="com.feiyongjing.blog.entity.Blog">
         UPDATE blog
         SET title       = #{title},
             content     = #{content},
@@ -67,14 +67,14 @@
         FROM blog
         WHERE id = #{blogId}
     </delete>
-    <resultMap id="blog" type="FirstSpring.entity.Blog">
+    <resultMap id="blog" type="com.feiyongjing.blog.entity.Blog">
         <id property="id" column="blog_id"/>
         <result property="title" column="blog_title"/>
         <result property="description" column="blog_description"/>
         <result property="content" column="blog_content"/>
         <result property="updatedAt" column="blog_updated_at"/>
         <result property="createdAt" column="blog_created_at"/>
-        <association property="user" javaType="FirstSpring.entity.User">
+        <association property="user" javaType="com.feiyongjing.blog.entity.User">
             <id property="id" column="user_id"/>
             <result property="username" column="user_username"/>
             <result property="avatar" column="user_avatar"/>
