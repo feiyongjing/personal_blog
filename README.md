@@ -31,3 +31,7 @@ docker run -d -p 8081:8080 -p 50000:50000 -v /root/jenkins-data:/var/jenkins_hom
 ```
 docker run -d -p 5000:5000 --restart always --name registry registry:2
 ```
+启动后访问
+```
+http://localhost:8080
+```
